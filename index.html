@@ -1,0 +1,2798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FluentFox - Learn English</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #0a0f1e;
+            --secondary-color: #1e3a8a;
+            --accent-color: #7c3aed;
+            --text-color: #e2e8f0;
+            --dark-bg: #020617;
+            --light-bg: #1e293b;
+            --gradient-1: linear-gradient(135deg, #0a0f1e, #1e3a8a);
+            --gradient-2: linear-gradient(135deg, #1e3a8a, #7c3aed);
+            --card-bg: rgba(30, 41, 59, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: var(--accent-color);
+            width: 0%;
+            z-index: 1001;
+        }
+
+        header {
+            background: var(--gradient-1);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 4px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--accent-color);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 2rem;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: all 0.3s;
+            transform: translateX(-50%);
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            background: var(--gradient-2),
+                        url('https://i.pinimg.com/736x/28/14/20/2814203c60c04b43e06dd2dd5d4d15a5.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            background: linear-gradient(to right, #fff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(124,58,237,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(124,58,237,0.6);
+        }
+
+        .sections {
+            max-width: 1200px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            border: 1px solid rgba(124,58,237,0.2);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .section h2 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent-color);
+        }
+
+        .section-content {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .section-text {
+            flex: 1;
+        }
+
+        .section-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            border: 2px solid var(--accent-color);
+        }
+
+        .section-image:hover {
+            transform: scale(1.05);
+        }
+
+        .section-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .vocabulary-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .vocabulary-item {
+            background: var(--gradient-1);
+            padding: 2rem;
+            border-radius: 15px;
+            color: white;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(124,58,237,0.3);
+        }
+
+        .vocabulary-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(124,58,237,0.1);
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+
+        .vocabulary-item:hover::before {
+            transform: translateX(0);
+        }
+
+        .vocabulary-item h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .vocabulary-item ul {
+            list-style: none;
+        }
+
+        .vocabulary-item ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .vocabulary-item ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+
+        .grammar-rules {
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .rule {
+            background: var(--light-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .rule h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .rule p {
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .translation {
+            color: var(--accent-color);
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        .practice-section {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--light-bg);
+            border-radius: 15px;
+        }
+
+        .practice-section h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .quiz-container {
+            margin-top: 1rem;
+        }
+
+        .quiz-question {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: var(--card-bg);
+            border-radius: 10px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .quiz-option {
+            padding: 0.5rem;
+            background: var(--dark-bg);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            background: var(--accent-color);
+        }
+
+        footer {
+            background: var(--gradient-1);
+            color: white;
+            text-align: center;
+            padding: 3rem;
+            margin-top: 3rem;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 1rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-content {
+                flex-direction: column;
+            }
+            
+            .section-image {
+                order: -1;
+                margin-bottom: 2rem;
+            }
+
+            .section {
+                padding: 2rem;
+            }
+        }
+
+        .word-pair {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem;
+            border-bottom: 1px solid rgba(124,58,237,0.2);
+        }
+
+        .word-pair:hover {
+            background: rgba(124,58,237,0.1);
+        }
+
+        .tense-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .tense-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(124,58,237,0.3);
+            transition: all 0.3s;
+        }
+
+        .tense-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .vocabulary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .vocabulary-category {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(124,58,237,0.3);
+        }
+
+        .vocabulary-category h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .practice-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(124,58,237,0.3);
+        }
+
+        .practice-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .word-card {
+            perspective: 1000px;
+            height: 150px;
+            cursor: pointer;
+        }
+
+        .word-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+        }
+
+        .word-card.flipped .word-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .word-card-front, .word-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .word-card-front {
+            background: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .word-card-back {
+            background: var(--accent-color);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .test-section {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .test-question {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 10px;
+        }
+
+        .test-options {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .test-option {
+            padding: 1rem;
+            background: var(--dark-bg);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .test-option:hover {
+            background: var(--accent-color);
+        }
+
+        .test-option.selected {
+            background: var(--accent-color);
+        }
+
+        .test-option.correct {
+            background: #4caf50;
+        }
+
+        .test-option.incorrect {
+            background: #f44336;
+        }
+
+        .test-result {
+            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+
+        .test-result.correct {
+            background: #4caf50;
+            display: block;
+        }
+
+        .test-result.incorrect {
+            background: #f44336;
+            display: block;
+        }
+
+        .difficulty-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .difficulty-tab {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .difficulty-tab.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .vocabulary-level {
+            display: none;
+        }
+
+        .vocabulary-level.active {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .test-category {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+        }
+
+        .test-category h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .welcome-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-content {
+            max-width: 800px;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .welcome-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .welcome-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.5s;
+        }
+
+        .welcome-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 1s;
+        }
+
+        .welcome-button {
+            padding: 1rem 2rem;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .welcome-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .floating-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        .learning-paths {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .path-card {
+            background: var(--card-bg);
+            padding: 1.5rem 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+            min-width: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .path-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .path-card i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+        }
+
+        .path-card h3 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .path-card p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        .test-levels {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .test-level {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--light-bg);
+            color: var(--text-color);
+        }
+
+        .test-level.active {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .score-display {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            display: none;
+        }
+
+        .score-display.show {
+            display: block;
+            animation: fadeIn 1s ease-out;
+        }
+
+        .score-circle {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .test-progress {
+            margin-top: 1rem;
+            height: 5px;
+            background: var(--light-bg);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .test-progress-bar {
+            height: 100%;
+            background: var(--accent-color);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .contact-section {
+            background: var(--gradient-1);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-item i {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+        }
+
+        .contact-item a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-item a:hover {
+            color: var(--accent-color);
+        }
+
+        .contact-description {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .test-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .test-nav-button {
+            padding: 0.5rem 1rem;
+            background: var(--light-bg);
+            color: var(--text-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .test-nav-button:hover {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .test-nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .test-counter {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .tense-level {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .tense-level.active {
+            display: grid;
+        }
+
+        .tense-card {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(124,58,237,0.3);
+            transition: all 0.3s;
+        }
+
+        .tense-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .tense-card p {
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .tense-card .translation {
+            color: var(--accent-color);
+            font-style: italic;
+            font-size: 0.8rem;
+        }
+
+        function showTenseLevel(level) {
+            // Hide all levels
+            document.querySelectorAll('.tense-level').forEach(el => {
+                el.style.display = 'none';
+            });
+            // Show selected level
+            document.getElementById(level).style.display = 'grid';
+            
+            // Update tabs
+            document.querySelectorAll('.difficulty-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.difficulty-tab[onclick="showTenseLevel('${level}')"]`).classList.add('active');
+        }
+
+        // Initialize tense navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            showTenseLevel('simple');
+        });
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(124,58,237,0.3);
+            transition: all 0.3s;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .resource-card i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .resource-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .resource-card ul {
+            list-style: none;
+        }
+
+        .resource-card ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .resource-card ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .practice-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(124,58,237,0.3);
+            transition: all 0.3s;
+        }
+
+        .practice-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .practice-card i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .practice-card h3 {
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .practice-card ul {
+            list-style: none;
+        }
+
+        .practice-card ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .practice-card ul li::before {
+            content: '•';
+            color: var(--accent-color);
+            position: absolute;
+            left: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar"></div>
+    
+    <section class="welcome-section">
+        <div class="floating-elements">
+            <div class="floating-element" style="width: 50px; height: 50px; left: 10%; animation-delay: 0s;"></div>
+            <div class="floating-element" style="width: 30px; height: 30px; left: 30%; animation-delay: 2s;"></div>
+            <div class="floating-element" style="width: 40px; height: 40px; left: 50%; animation-delay: 4s;"></div>
+            <div class="floating-element" style="width: 60px; height: 60px; left: 70%; animation-delay: 6s;"></div>
+            <div class="floating-element" style="width: 20px; height: 20px; left: 90%; animation-delay: 8s;"></div>
+        </div>
+        <div class="welcome-content">
+            <h1>Welcome to FluentFox</h1>
+            <p>Choose your learning path and start mastering English</p>
+            <div class="learning-paths">
+                <div class="path-card" onclick="startLearning('grammar')">
+                    <i class="fas fa-language"></i>
+                    <h3>Grammar</h3>
+                    <p>Master rules</p>
+                </div>
+                <div class="path-card" onclick="startLearning('vocabulary')">
+                    <i class="fas fa-book"></i>
+                    <h3>Vocabulary</h3>
+                    <p>Learn new words</p>
+                </div>
+                <div class="path-card" onclick="startLearning('tenses')">
+                    <i class="fas fa-clock"></i>
+                    <h3>Tenses</h3>
+                    <p>Learn verb forms</p>
+                </div>
+                <div class="path-card" onclick="startLearning('test')">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Test</h3>
+                    <p>Check progress</p>
+                </div>
+                <div class="path-card" onclick="startLearning('resources')">
+                    <i class="fas fa-link"></i>
+                    <h3>Resources</h3>
+                    <p>Useful links</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-fox"></i>
+                FluentFox
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="#grammar">Grammar</a></li>
+                    <li><a href="#vocabulary">Vocabulary</a></li>
+                    <li><a href="#tenses">Tenses</a></li>
+                    <li><a href="#practice">Practice</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="sections">
+        <section id="grammar" class="section">
+            <h2>English Grammar</h2>
+            <div class="section-content">
+                <div class="section-text">
+                    <p>Master the fundamentals of English grammar with our comprehensive guides and examples.</p>
+                    <div class="grammar-rules">
+                        <div class="rule">
+                            <h3>Articles (a/an/the)</h3>
+                            <p>Use 'a' before consonant sounds, 'an' before vowel sounds, 'the' for specific things. Example: a book, an apple, the sun.</p>
+                            <p class="translation">Артикли - 'a' перед согласными, 'an' перед гласными, 'the' для конкретных предметов.</p>
+                        </div>
+                        <div class="rule">
+                            <h3>Prepositions</h3>
+                            <p>Time: at 5 PM, on Monday, in July. Place: at home, in the park, on the table.</p>
+                            <p class="translation">Предлоги - времени: at, on, in. Места: at, in, on.</p>
+                        </div>
+                        <div class="rule">
+                            <h3>Countable/Uncountable</h3>
+                            <p>Countable: books, apples. Uncountable: water, information. Use 'some' with uncountable.</p>
+                            <p class="translation">Исчисляемые: книги, яблоки. Неисчисляемые: вода, информация.</p>
+                        </div>
+                        <div class="rule">
+                            <h3>Adjectives Order</h3>
+                            <p>Opinion-size-age-shape-color-origin-material-purpose. Example: beautiful big old round red Italian wooden dining table.</p>
+                            <p class="translation">Порядок: мнение-размер-возраст-форма-цвет-происхождение-материал-назначение.</p>
+                        </div>
+                        <div class="rule">
+                            <h3>Modal Verbs</h3>
+                            <p>Can (ability), must (obligation), should (advice), may (permission). Example: I can swim. You must study.</p>
+                            <p class="translation">Модальные глаголы: can (способность), must (обязанность), should (совет), may (разрешение).</p>
+                        </div>
+                        <div class="rule">
+                            <h3>Comparatives</h3>
+                            <p>Add -er/-est or use more/most. Example: big-bigger-biggest, beautiful-more beautiful-most beautiful.</p>
+                            <p class="translation">Сравнительная степень: -er/-est или more/most.</p>
+                        </div>
+                        <div class="rule">
+                            <h3>Question Words</h3>
+                            <p>Who (person), what (thing), where (place), when (time), why (reason), how (manner).</p>
+                            <p class="translation">Вопросительные слова: who (кто), what (что), where (где), when (когда), why (почему), how (как).</p>
+                        </div>
+                        <div class="rule">
+                            <h3>Plural Forms</h3>
+                            <p>Add -s: book-books. Add -es: box-boxes. Change -y to -ies: city-cities. Irregular: child-children.</p>
+                            <p class="translation">Множественное число: -s, -es, -ies, неправильные формы.</p>
+                        </div>
+                        <div class="rule">
+                            <h3>Possessive Forms</h3>
+                            <p>Add 's for singular: John's book. Add ' for plural: students' books. Use 'of' for things: the color of the sky.</p>
+                            <p class="translation">Притяжательный падеж: 's для единственного числа, ' для множественного.</p>
+                        </div>
+                        <div class="rule">
+                            <h3>There is/are</h3>
+                            <p>Use 'there is' for singular, 'there are' for plural. Example: There is a book. There are two books.</p>
+                            <p class="translation">There is для единственного числа, there are для множественного.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="tenses" class="section">
+            <h2>English Tenses</h2>
+            <div class="difficulty-tabs">
+                <div class="difficulty-tab active" onclick="showTenseLevel('simple')">Simple</div>
+                <div class="difficulty-tab" onclick="showTenseLevel('continuous')">Continuous</div>
+                <div class="difficulty-tab" onclick="showTenseLevel('perfect')">Perfect</div>
+                <div class="difficulty-tab" onclick="showTenseLevel('perfect-continuous')">Perfect Continuous</div>
+            </div>
+
+            <div id="simple" class="tense-level active">
+                <div class="tense-card">
+                    <h3>Present Simple</h3>
+                    <p>Used for habits and general truths.</p>
+                    <p>Example: I work every day.</p>
+                    <p>Form: Subject + base verb</p>
+                    <p class="translation">Настоящее простое время - используется для привычек и общих истин.</p>
+                </div>
+                <div class="tense-card">
+                    <h3>Past Simple</h3>
+                    <p>Used for completed actions in the past.</p>
+                    <p>Example: I worked yesterday.</p>
+                    <p>Form: Subject + past tense verb</p>
+                    <p class="translation">Прошедшее простое время - используется для завершенных действий в прошлом.</p>
+                </div>
+                <div class="tense-card">
+                    <h3>Future Simple</h3>
+                    <p>Used for future actions.</p>
+                    <p>Example: I will work tomorrow.</p>
+                    <p>Form: Subject + will + base verb</p>
+                    <p class="translation">Будущее простое время - используется для будущих действий.</p>
+                </div>
+            </div>
+
+            <div id="continuous" class="tense-level">
+                <div class="tense-card">
+                    <h3>Present Continuous</h3>
+                    <p>Used for actions happening now.</p>
+                    <p>Example: I am working now.</p>
+                    <p>Form: Subject + am/is/are + verb-ing</p>
+                    <p class="translation">Настоящее длительное время - используется для действий, происходящих сейчас.</p>
+                </div>
+                <div class="tense-card">
+                    <h3>Past Continuous</h3>
+                    <p>Used for actions in progress in the past.</p>
+                    <p>Example: I was working when you called.</p>
+                    <p>Form: Subject + was/were + verb-ing</p>
+                    <p class="translation">Прошедшее длительное время - используется для действий в процессе в прошлом.</p>
+                </div>
+                <div class="tense-card">
+                    <h3>Future Continuous</h3>
+                    <p>Used for actions in progress in the future.</p>
+                    <p>Example: I will be working at 5 PM.</p>
+                    <p>Form: Subject + will be + verb-ing</p>
+                    <p class="translation">Будущее длительное время - используется для действий в процессе в будущем.</p>
+                </div>
+            </div>
+
+            <div id="perfect" class="tense-level">
+                <div class="tense-card">
+                    <h3>Present Perfect</h3>
+                    <p>Used for completed actions with present relevance.</p>
+                    <p>Example: I have worked here for 5 years.</p>
+                    <p>Form: Subject + have/has + past participle</p>
+                    <p class="translation">Настоящее совершенное время - используется для завершенных действий, имеющих отношение к настоящему.</p>
+                </div>
+                <div class="tense-card">
+                    <h3>Past Perfect</h3>
+                    <p>Used for actions completed before another past action.</p>
+                    <p>Example: I had worked before you arrived.</p>
+                    <p>Form: Subject + had + past participle</p>
+                    <p class="translation">Прошедшее совершенное время - используется для действий, завершенных до другого действия в прошлом.</p>
+                </div>
+                <div class="tense-card">
+                    <h3>Future Perfect</h3>
+                    <p>Used for actions completed before a future time.</p>
+                    <p>Example: I will have worked by 5 PM.</p>
+                    <p>Form: Subject + will have + past participle</p>
+                    <p class="translation">Будущее совершенное время - используется для действий, которые будут завершены к определенному моменту в будущем.</p>
+                </div>
+            </div>
+
+            <div id="perfect-continuous" class="tense-level">
+                <div class="tense-card">
+                    <h3>Present Perfect Continuous</h3>
+                    <p>Used for ongoing actions that started in the past.</p>
+                    <p>Example: I have been working since morning.</p>
+                    <p>Form: Subject + have/has been + verb-ing</p>
+                    <p class="translation">Настоящее совершенное длительное время - используется для действий, начавшихся в прошлом и продолжающихся до настоящего.</p>
+                </div>
+                <div class="tense-card">
+                    <h3>Past Perfect Continuous</h3>
+                    <p>Used for ongoing actions before another past action.</p>
+                    <p>Example: I had been working for hours.</p>
+                    <p>Form: Subject + had been + verb-ing</p>
+                    <p class="translation">Прошедшее совершенное длительное время - используется для действий, которые продолжались до другого действия в прошлом.</p>
+                </div>
+                <div class="tense-card">
+                    <h3>Future Perfect Continuous</h3>
+                    <p>Used for ongoing actions until a future time.</p>
+                    <p>Example: I will have been working for 8 hours.</p>
+                    <p>Form: Subject + will have been + verb-ing</p>
+                    <p class="translation">Будущее совершенное длительное время - используется для действий, которые будут продолжаться до определенного момента в будущем.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="vocabulary" class="section">
+            <h2>Vocabulary Builder</h2>
+            <div class="difficulty-tabs">
+                <div class="difficulty-tab active" onclick="showLevel('easy')">Easy</div>
+                <div class="difficulty-tab" onclick="showLevel('medium')">Medium</div>
+                <div class="difficulty-tab" onclick="showLevel('hard')">Hard</div>
+            </div>
+
+            <div id="easy" class="vocabulary-level active">
+                <!-- Easy words (50) -->
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Hello</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Привет</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Goodbye</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>До свидания</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Thank you</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Спасибо</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Please</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Пожалуйста</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Yes</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Да</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>No</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Нет</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Good</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Хорошо</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Bad</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Плохо</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Big</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Большой</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Small</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Маленький</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Happy</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Счастливый</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Sad</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Грустный</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Fast</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Быстрый</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Slow</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Медленный</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Hot</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Горячий</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Cold</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Холодный</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>New</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Новый</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Old</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Старый</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Young</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Молодой</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more easy words... -->
+            </div>
+
+            <div id="medium" class="vocabulary-level">
+                <!-- Medium words (50) -->
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Environment</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Окружающая среда</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Opportunity</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Возможность</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Development</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Развитие</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Experience</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Опыт</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Knowledge</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Знание</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Technology</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Технология</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Education</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Образование</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Communication</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Общение</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Information</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Информация</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Research</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Исследование</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Analysis</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Анализ</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Strategy</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Стратегия</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Innovation</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Инновация</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Management</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Управление</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Leadership</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Лидерство</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Collaboration</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Сотрудничество</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Efficiency</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Эффективность</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Productivity</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Производительность</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Performance</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Производительность</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more medium words... -->
+            </div>
+
+            <div id="hard" class="vocabulary-level">
+                <!-- Hard words (50) -->
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Phenomenon</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Феномен</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Conscientious</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Добросовестный</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Ubiquitous</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Вездесущий</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Meticulous</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Доскональный</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Perseverance</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Настойчивость</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Exacerbate</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Усугублять</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Quintessential</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Квинтэссенция</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Serendipity</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Счастливая случайность</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Ephemeral</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Эфемерный</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Resilience</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Устойчивость</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Ambiguous</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Двусмысленный</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Conundrum</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Загадка</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Dilemma</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Дилемма</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Enigma</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Загадка</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Paradox</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Парадокс</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Pragmatic</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Прагматичный</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Proactive</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Инициативный</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Resolute</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Решительный</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-card" onclick="this.classList.toggle('flipped')">
+                    <div class="word-card-inner">
+                        <div class="word-card-front">
+                            <h4>Tenacious</h4>
+                        </div>
+                        <div class="word-card-back">
+                            <h4>Упорный</h4>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more hard words... -->
+            </div>
+        </section>
+
+        <section id="test" class="section">
+            <h2>Comprehensive Test</h2>
+            <div class="test-levels">
+                <div class="test-level active" onclick="showTestLevel('beginner')">Beginner</div>
+                <div class="test-level" onclick="showTestLevel('intermediate')">Intermediate</div>
+                <div class="test-level" onclick="showTestLevel('advanced')">Advanced</div>
+            </div>
+
+            <div class="test-counter">Question <span id="current-question">1</span> of 10</div>
+
+            <div class="test-grid">
+                <div class="test-category">
+                    <h3><i class="fas fa-book"></i> Grammar Test</h3>
+                    <div class="test-question">
+                        <p id="grammar-question">Choose the correct form of the verb:</p>
+                        <div class="test-options">
+                            <div class="test-option" onclick="checkAnswer(this, 'correct', 'grammar')">I go to school every day</div>
+                            <div class="test-option" onclick="checkAnswer(this, 'incorrect', 'grammar')">I going to school every day</div>
+                            <div class="test-option" onclick="checkAnswer(this, 'incorrect', 'grammar')">I gone to school every day</div>
+                        </div>
+                        <div class="test-result"></div>
+                    </div>
+                </div>
+
+                <div class="test-category">
+                    <h3><i class="fas fa-language"></i> Vocabulary Test</h3>
+                    <div class="test-question">
+                        <p id="vocabulary-question">What is the Russian translation for 'Hello'?</p>
+                        <div class="test-options">
+                            <div class="test-option" onclick="checkAnswer(this, 'correct', 'vocabulary')">Привет</div>
+                            <div class="test-option" onclick="checkAnswer(this, 'incorrect', 'vocabulary')">Пока</div>
+                            <div class="test-option" onclick="checkAnswer(this, 'incorrect', 'vocabulary')">Спасибо</div>
+                        </div>
+                        <div class="test-result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="test-navigation">
+                <button class="test-nav-button" onclick="previousQuestion()" id="prev-button" disabled>Previous</button>
+                <button class="test-nav-button" onclick="nextQuestion()" id="next-button">Next</button>
+            </div>
+
+            <div class="score-display">
+                <div class="score-circle">0%</div>
+                <h3>Your Score</h3>
+                <div class="test-progress">
+                    <div class="test-progress-bar"></div>
+                </div>
+                <p class="score-message"></p>
+            </div>
+        </section>
+
+        <section id="resources" class="section">
+            <h2>Learning Resources</h2>
+            <div class="section-content">
+                <div class="section-text">
+                    <p>Explore these useful resources to enhance your English learning journey.</p>
+                    <div class="resources-grid">
+                        <div class="resource-card">
+                            <i class="fas fa-book-open"></i>
+                            <h3>Grammar Books</h3>
+                            <ul>
+                                <li>English Grammar in Use</li>
+                                <li>Practical English Usage</li>
+                                <li>Oxford English Grammar</li>
+                            </ul>
+                        </div>
+                        <div class="resource-card">
+                            <i class="fas fa-laptop"></i>
+                            <h3>Online Courses</h3>
+                            <ul>
+                                <li>Coursera English Courses</li>
+                                <li>Udemy English Classes</li>
+                                <li>BBC Learning English</li>
+                            </ul>
+                        </div>
+                        <div class="resource-card">
+                            <i class="fas fa-mobile-alt"></i>
+                            <h3>Mobile Apps</h3>
+                            <ul>
+                                <li>Duolingo</li>
+                                <li>Memrise</li>
+                                <li>Busuu</li>
+                            </ul>
+                        </div>
+                        <div class="resource-card">
+                            <i class="fas fa-video"></i>
+                            <h3>YouTube Channels</h3>
+                            <ul>
+                                <li>English Addict with Mr Steve</li>
+                                <li>BBC Learning English</li>
+                                <li>English with Lucy</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="practice" class="section">
+            <h2>Practice Exercises</h2>
+            <div class="practice-grid">
+                <div class="practice-card">
+                    <i class="fas fa-pen"></i>
+                    <h3>Writing Practice</h3>
+                    <ul>
+                        <li>Daily journal entries</li>
+                        <li>Essay writing</li>
+                        <li>Email composition</li>
+                        <li>Story writing</li>
+                    </ul>
+                </div>
+                <div class="practice-card">
+                    <i class="fas fa-microphone"></i>
+                    <h3>Speaking Practice</h3>
+                    <ul>
+                        <li>Conversation exercises</li>
+                        <li>Pronunciation drills</li>
+                        <li>Role-playing scenarios</li>
+                        <li>Presentation practice</li>
+                    </ul>
+                </div>
+                <div class="practice-card">
+                    <i class="fas fa-headphones"></i>
+                    <h3>Listening Practice</h3>
+                    <ul>
+                        <li>Audio exercises</li>
+                        <li>Podcast listening</li>
+                        <li>Video comprehension</li>
+                        <li>Dictation practice</li>
+                    </ul>
+                </div>
+                <div class="practice-card">
+                    <i class="fas fa-book-reader"></i>
+                    <h3>Reading Practice</h3>
+                    <ul>
+                        <li>Article reading</li>
+                        <li>Book excerpts</li>
+                        <li>News comprehension</li>
+                        <li>Poetry reading</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="contact-section">
+        <div class="contact-content">
+            <h2 class="contact-title">Contact Us</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <a href="mailto:den.aslyamov@inbox.ru">den.aslyamov@inbox.ru</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-telegram"></i>
+                    <a href="https://t.me/den1iis">@den1iis</a>
+                </div>
+                <div class="contact-item">
+                    <i class="fab fa-telegram"></i>
+                    <a href="https://t.me/helpstudyenglish_bot">@helpstudyenglish_bot</a>
+                </div>
+            </div>
+            <p class="contact-description">
+                Join our Telegram channel for daily English lessons, practice exercises, and learning tips. 
+                Feel free to contact us for any questions or suggestions!
+            </p>
+        </div>
+    </section>
+
+    <footer>
+        <p>FluentFox</p>
+    </footer>
+
+    <script>
+        // Progress bar
+        window.onscroll = function() {
+            var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.querySelector(".progress-bar").style.width = scrolled + "%";
+        };
+
+        // Quiz functionality
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                this.style.background = 'var(--accent-color)';
+                setTimeout(() => {
+                    this.style.background = 'var(--dark-bg)';
+                }, 1000);
+            });
+        });
+
+        // Flashcard functionality
+        document.querySelectorAll('.flashcard').forEach(card => {
+            card.addEventListener('click', function() {
+                this.querySelector('.flashcard-inner').classList.toggle('flipped');
+            });
+        });
+
+        function startLearning(path) {
+            const section = document.getElementById(path);
+            if (section) {
+                const headerOffset = 100; // Adjust this value to move the section up
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        let currentQuestion = 1;
+        const totalQuestions = 10;
+        let currentLevel = 'beginner';
+        let userAnswers = {};
+        let score = 0;
+
+        const beginnerQuestions = {
+            grammar: [
+                {
+                    question: "Choose the correct form of the verb:",
+                    options: [
+                        "I ___ to school every day. (go)",
+                        "I ___ to school every day. (going)",
+                        "I ___ to school every day. (gone)"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct article:",
+                    options: [
+                        "I have ___ apple",
+                        "I have ___ banana",
+                        "I have ___ orange"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct preposition:",
+                    options: [
+                        "I will meet you ___ 5 PM",
+                        "I will meet you ___ Monday",
+                        "I will meet you ___ July"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct modal verb:",
+                    options: [
+                        "You ___ study for the exam",
+                        "You ___ swim very well",
+                        "You ___ go to the party"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct adjective order:",
+                    options: [
+                        "big red car",
+                        "red big car",
+                        "car big red"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct comparative:",
+                    options: [
+                        "This book is ___ than that one",
+                        "This book is ___ than that one",
+                        "This book is ___ than that one"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct question word:",
+                    options: [
+                        "___ is your name?",
+                        "___ are you from?",
+                        "___ do you study?"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "I ___ TV now",
+                        "I ___ TV yesterday",
+                        "I ___ TV tomorrow"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct noun form:",
+                    options: [
+                        "I need some ___",
+                        "I need some ___",
+                        "I need some ___"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct sentence:",
+                    options: [
+                        "She has lived here for 5 years",
+                        "She lives here for 5 years",
+                        "She is living here for 5 years"
+                    ],
+                    correct: 0
+                }
+            ],
+            vocabulary: [
+                {
+                    question: "What is the Russian translation for 'Hello'?",
+                    options: ["Привет", "Пока", "Спасибо"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Goodbye'?",
+                    options: ["Привет", "До свидания", "Спасибо"],
+                    correct: 1
+                },
+                {
+                    question: "What is the Russian translation for 'Thank you'?",
+                    options: ["Пожалуйста", "До свидания", "Спасибо"],
+                    correct: 2
+                },
+                {
+                    question: "What is the Russian translation for 'Please'?",
+                    options: ["Пожалуйста", "Спасибо", "Привет"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Yes'?",
+                    options: ["Нет", "Да", "Может быть"],
+                    correct: 1
+                },
+                {
+                    question: "What is the Russian translation for 'No'?",
+                    options: ["Да", "Нет", "Возможно"],
+                    correct: 1
+                },
+                {
+                    question: "What is the Russian translation for 'Good'?",
+                    options: ["Плохо", "Хорошо", "Нормально"],
+                    correct: 1
+                },
+                {
+                    question: "What is the Russian translation for 'Bad'?",
+                    options: ["Хорошо", "Плохо", "Нормально"],
+                    correct: 1
+                },
+                {
+                    question: "What is the Russian translation for 'Big'?",
+                    options: ["Маленький", "Средний", "Большой"],
+                    correct: 2
+                },
+                {
+                    question: "What is the Russian translation for 'Small'?",
+                    options: ["Большой", "Маленький", "Средний"],
+                    correct: 1
+                }
+            ]
+        };
+
+        const intermediateQuestions = {
+            grammar: [
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "I have been studying English for 5 years",
+                        "I am studying English for 5 years",
+                        "I was studying English for 5 years"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "She has finished her homework",
+                        "She finished her homework",
+                        "She is finishing her homework"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "They will be traveling next month",
+                        "They are traveling next month",
+                        "They travel next month"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "I had already left when you called",
+                        "I have already left when you called",
+                        "I was already leaving when you called"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "We have been waiting for an hour",
+                        "We are waiting for an hour",
+                        "We wait for an hour"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "He will have finished by tomorrow",
+                        "He will finish by tomorrow",
+                        "He finishes by tomorrow"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "They had been working all day",
+                        "They have been working all day",
+                        "They were working all day"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "I will be studying at this time tomorrow",
+                        "I am studying at this time tomorrow",
+                        "I study at this time tomorrow"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "She has lived here since 2010",
+                        "She lives here since 2010",
+                        "She is living here since 2010"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct tense:",
+                    options: [
+                        "We had seen that movie before",
+                        "We have seen that movie before",
+                        "We saw that movie before"
+                    ],
+                    correct: 0
+                }
+            ],
+            vocabulary: [
+                {
+                    question: "What is the Russian translation for 'Environment'?",
+                    options: ["Окружающая среда", "Окружение", "Среда обитания"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Opportunity'?",
+                    options: ["Возможность", "Шанс", "Вариант"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Development'?",
+                    options: ["Развитие", "Рост", "Прогресс"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Experience'?",
+                    options: ["Опыт", "Эксперимент", "Практика"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Knowledge'?",
+                    options: ["Знание", "Информация", "Образование"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Technology'?",
+                    options: ["Технология", "Техника", "Наука"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Education'?",
+                    options: ["Образование", "Обучение", "Воспитание"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Communication'?",
+                    options: ["Общение", "Коммуникация", "Связь"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Information'?",
+                    options: ["Информация", "Данные", "Сведения"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Research'?",
+                    options: ["Исследование", "Поиск", "Анализ"],
+                    correct: 0
+                }
+            ]
+        };
+
+        const advancedQuestions = {
+            grammar: [
+                {
+                    question: "Choose the correct conditional:",
+                    options: [
+                        "If I had known, I would have helped",
+                        "If I know, I would help",
+                        "If I knew, I would have helped"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct conditional:",
+                    options: [
+                        "If it rains, we will stay home",
+                        "If it rained, we would stay home",
+                        "If it had rained, we would have stayed home"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct conditional:",
+                    options: [
+                        "If I were you, I would study more",
+                        "If I was you, I would study more",
+                        "If I am you, I will study more"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct conditional:",
+                    options: [
+                        "If she had studied, she would have passed",
+                        "If she studied, she would pass",
+                        "If she studies, she will pass"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct conditional:",
+                    options: [
+                        "If they had left earlier, they wouldn't have missed the train",
+                        "If they left earlier, they wouldn't miss the train",
+                        "If they leave earlier, they won't miss the train"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct conditional:",
+                    options: [
+                        "If I had more time, I would travel more",
+                        "If I have more time, I will travel more",
+                        "If I had had more time, I would have traveled more"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct conditional:",
+                    options: [
+                        "If you had called me, I would have helped",
+                        "If you call me, I will help",
+                        "If you called me, I would help"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct conditional:",
+                    options: [
+                        "If we had known about the traffic, we would have left earlier",
+                        "If we know about the traffic, we will leave earlier",
+                        "If we knew about the traffic, we would leave earlier"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct conditional:",
+                    options: [
+                        "If he had studied harder, he would have passed the exam",
+                        "If he studies harder, he will pass the exam",
+                        "If he studied harder, he would pass the exam"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Choose the correct conditional:",
+                    options: [
+                        "If I had seen her, I would have told her",
+                        "If I see her, I will tell her",
+                        "If I saw her, I would tell her"
+                    ],
+                    correct: 0
+                }
+            ],
+            vocabulary: [
+                {
+                    question: "What is the Russian translation for 'Phenomenon'?",
+                    options: ["Феномен", "Явление", "Событие"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Conscientious'?",
+                    options: ["Добросовестный", "Сознательный", "Ответственный"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Ubiquitous'?",
+                    options: ["Вездесущий", "Повсеместный", "Распространенный"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Meticulous'?",
+                    options: ["Доскональный", "Тщательный", "Скрупулезный"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Perseverance'?",
+                    options: ["Настойчивость", "Упорство", "Терпение"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Exacerbate'?",
+                    options: ["Усугублять", "Ухудшать", "Обострять"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Quintessential'?",
+                    options: ["Квинтэссенция", "Сущность", "Основа"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Serendipity'?",
+                    options: ["Счастливая случайность", "Удача", "Совпадение"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Ephemeral'?",
+                    options: ["Эфемерный", "Временный", "Кратковременный"],
+                    correct: 0
+                },
+                {
+                    question: "What is the Russian translation for 'Resilience'?",
+                    options: ["Устойчивость", "Живучесть", "Прочность"],
+                    correct: 0
+                }
+            ]
+        };
+
+        function showTestLevel(level) {
+            currentLevel = level;
+            currentQuestion = 1;
+            userAnswers = {};
+            score = 0;
+            
+            // Hide score display when starting new test
+            document.querySelector('.score-display').classList.remove('show');
+            
+            // Update active level
+            document.querySelectorAll('.test-level').forEach(el => {
+                el.classList.remove('active');
+            });
+            document.querySelector(`.test-level[onclick="showTestLevel('${level}')"]`).classList.add('active');
+
+            // Reset all test options and results
+            document.querySelectorAll('.test-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                option.style.backgroundColor = 'var(--dark-bg)';
+            });
+
+            document.querySelectorAll('.test-result').forEach(result => {
+                result.className = 'test-result';
+                result.textContent = '';
+            });
+
+            // Update question counter
+            document.getElementById('current-question').textContent = currentQuestion;
+
+            // Update navigation buttons
+            document.getElementById('prev-button').disabled = true;
+            document.getElementById('next-button').disabled = false;
+
+            // Load first question immediately
+            loadQuestion(currentQuestion);
+        }
+
+        function loadQuestion(questionNumber) {
+            const questions = currentLevel === 'beginner' ? beginnerQuestions :
+                            currentLevel === 'intermediate' ? intermediateQuestions :
+                            advancedQuestions;
+
+            // Reset all options and results first
+            document.querySelectorAll('.test-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                option.style.backgroundColor = 'var(--dark-bg)';
+            });
+
+            document.querySelectorAll('.test-result').forEach(result => {
+                result.className = 'test-result';
+                result.textContent = '';
+            });
+
+            // Update grammar question
+            const grammarQuestion = questions.grammar[questionNumber - 1];
+            if (grammarQuestion) {
+                document.getElementById('grammar-question').textContent = grammarQuestion.question;
+                const grammarOptions = document.querySelectorAll('.test-category:first-child .test-option');
+                grammarOptions.forEach((option, index) => {
+                    option.textContent = grammarQuestion.options[index];
+                    option.onclick = function() {
+                        checkAnswer(this, index === grammarQuestion.correct ? 'correct' : 'incorrect', 'grammar');
+                    };
+                });
+            }
+
+            // Update vocabulary question
+            const vocabularyQuestion = questions.vocabulary[questionNumber - 1];
+            if (vocabularyQuestion) {
+                document.getElementById('vocabulary-question').textContent = vocabularyQuestion.question;
+                const vocabularyOptions = document.querySelectorAll('.test-category:last-child .test-option');
+                vocabularyOptions.forEach((option, index) => {
+                    option.textContent = vocabularyQuestion.options[index];
+                    option.onclick = function() {
+                        checkAnswer(this, index === vocabularyQuestion.correct ? 'correct' : 'incorrect', 'vocabulary');
+                    };
+                });
+            }
+
+            // Update question counter
+            document.getElementById('current-question').textContent = questionNumber;
+
+            // Update navigation buttons
+            document.getElementById('prev-button').disabled = questionNumber === 1;
+            document.getElementById('next-button').disabled = questionNumber === totalQuestions;
+        }
+
+        function previousQuestion() {
+            if (currentQuestion > 1) {
+                currentQuestion--;
+                loadQuestion(currentQuestion);
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                currentQuestion++;
+                loadQuestion(currentQuestion);
+            }
+        }
+
+        function checkAnswer(element, result, category) {
+            const options = element.parentElement.querySelectorAll('.test-option');
+            const resultDiv = element.parentElement.nextElementSibling;
+            
+            // Reset all options in this question
+            options.forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+                opt.style.backgroundColor = 'var(--dark-bg)';
+            });
+            
+            // Mark selected option
+            element.classList.add('selected');
+            if (result === 'correct') {
+                element.classList.add('correct');
+                element.style.backgroundColor = '#4caf50';
+                score++;
+            } else {
+                element.classList.add('incorrect');
+                element.style.backgroundColor = '#f44336';
+            }
+            
+            // Show result
+            resultDiv.className = 'test-result ' + result;
+            resultDiv.textContent = result === 'correct' ? 'Correct!' : 'Incorrect!';
+            
+            // Store the answer
+            userAnswers[`${category}_${currentQuestion}`] = result === 'correct';
+
+            // Check if all questions are answered
+            const totalAnswered = Object.keys(userAnswers).length;
+            if (totalAnswered === totalQuestions * 2) { // 2 questions per page (grammar and vocabulary)
+                updateScoreDisplay();
+            }
+        }
+
+        function updateScoreDisplay() {
+            const percentage = Math.round((score / (totalQuestions * 2)) * 100);
+            const scoreDisplay = document.querySelector('.score-display');
+            const scoreCircle = document.querySelector('.score-circle');
+            const progressBar = document.querySelector('.test-progress-bar');
+            const scoreMessage = document.querySelector('.score-message');
+
+            scoreDisplay.classList.add('show');
+            scoreCircle.textContent = `${percentage}%`;
+            progressBar.style.width = `${percentage}%`;
+
+            // Set message based on score
+            if (percentage >= 90) {
+                scoreMessage.textContent = 'Excellent! You have mastered this level!';
+            } else if (percentage >= 70) {
+                scoreMessage.textContent = 'Good job! Keep practicing!';
+            } else if (percentage >= 50) {
+                scoreMessage.textContent = 'Not bad! You can do better!';
+            } else {
+                scoreMessage.textContent = 'Keep practicing! You\'ll get better!';
+            }
+        }
+
+        function showLevel(level) {
+            // Hide all levels
+            document.querySelectorAll('.vocabulary-level').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Show selected level
+            document.getElementById(level).classList.add('active');
+            
+            // Update tabs
+            document.querySelectorAll('.difficulty-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.difficulty-tab[onclick="showLevel('${level}')"]`).classList.add('active');
+        }
+
+        function showTenseLevel(level) {
+            // Hide all levels
+            document.querySelectorAll('.tense-level').forEach(el => {
+                el.style.display = 'none';
+            });
+            // Show selected level
+            document.getElementById(level).style.display = 'grid';
+            
+            // Update tabs
+            document.querySelectorAll('.difficulty-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.difficulty-tab[onclick="showTenseLevel('${level}')"]`).classList.add('active');
+        }
+
+        // Initialize tense navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            showTenseLevel('simple');
+        });
+    </script>
+</body>
+</html> 
